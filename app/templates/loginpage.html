@@ -1,7 +1,10 @@
-!DOCTYPE html
+<!DOCTYPE html>
 <html>
+    <head>
+        <title>Login to Chat App</title>
+    </head>
     <body>
-        <form method = 'post'>
+        <form method='post' style="margin: 10rem auto; width: max-content;">
             {% csrf_token %}
             {{form.as_p}}
             <br/>
@@ -9,5 +12,3 @@
         <form>
     </body>
 </html>
-
-
