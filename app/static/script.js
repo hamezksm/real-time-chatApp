@@ -1,16 +1,17 @@
 
-const webSocketUrl = "ws://127.0.0.1:8000/";
+// const webSocketUrl = "ws://127.0.0.1:8000/";
+const webSocketUrl = "ws://" + window.location.host + "/";
 let chatSocket;
-function connect(){
+function connect() {
     chatSocket = new WebSocket(webSocketUrl);
 
-    chatSocket.onopen = function (event){
+    chatSocket.onopen = function (event) {
         console.log("Connection opened!");
     }
 
-    chatSocket.onclose = function(event){
+    chatSocket.onclose = function (event) {
         console.log("Connection closed!");
-        setTimeout(() =>{
+        setTimeout(() => {
             connect();
         }, 5000);
     }
@@ -27,11 +28,10 @@ function connect(){
         }//when the enter button is pressed(keycode 13), call send message function
     };
     document.querySelector("#id_message_send_button").onclick = function (e) {
-        console.log(document.querySelector("#id_message_send_input").value);
-        var messageInput = document.querySelector(
-            "#id_message_send_input"
-        ).value;
-        chatSocket.send(JSON.stringify({ message: messageInput, username : "{{request.user.username}}"}));
+        var message = document.querySelector("#id_message_send_input").value;
+        console.log(message);
+        const username = document.querySelector("#id_username").value
+        chatSocket.send(JSON.stringify({ message, username }));
     };
     chatSocket.onmessage = function (e) {
         const data = JSON.parse(e.data);
