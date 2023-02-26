@@ -1,4 +1,13 @@
 
+let words = [
+    'arse','arsehead','arsehole','ass','asshole','bastard','bitch','bloody','bollocks',
+    'brotherfucker','bugger','bullshit','fucker','cock','cocksucker','crap','cunt',
+    'damn','damnit','dick','dickhead','dyke','fatherfucker','frigger','fuck','goddamn',
+    'godsdamn','hell','holy shit','horseshit','in shit','kike','motherfucker','nigga',
+    'nigra','piss','prick','pussy','shit','shit ass','shite','sisterfucker',
+    'slut','son of a bitch','whore','spastic','sweet Jesus','turd','twat','wanker',
+];
+
 // const webSocketUrl = "ws://127.0.0.1:8000/";
 const webSocketUrl = "ws://" + window.location.host + "/";
 let chatSocket;
@@ -20,7 +29,8 @@ function connect() {
         console.log("An error occurred: ", error);
     };
 
-    document.querySelector("#id_message_send_input").focus();
+    let textEl = document.getElementById('id_message_send_input');
+    textEl.focus();
 
     document.querySelector("#id_message_send_input").onkeyup = function (e) {
         if (e.keyCode == 13) {
@@ -28,8 +38,15 @@ function connect() {
         }//when the enter button is pressed(keycode 13), call send message function
     };
     document.querySelector("#id_message_send_button").onclick = function (e) {
-        var message = document.querySelector("#id_message_send_input").value;
+        let sentence = textEl.value;
+        console.log(sentence);
+        let message = censorWordsInSentence(sentence, words);
         console.log(message);
+
+        if (sentence != message){
+            window.alert("Vulgar word acknowledged. Please avoid using them!")
+        }
+
         const username = document.querySelector("#id_username").value
         chatSocket.send(JSON.stringify({ message, username }));
     };
@@ -43,3 +60,14 @@ function connect() {
 }
 
 connect();
+
+function censorWordsInSentence(sentence, words) {
+    // Create a regular expression to match any of the words in the array, with the 'g' flag for global matching and word boundaries
+    const regex = new RegExp('\\b(' + words.join('|') + ')\\b', 'g');
+  
+    // Replace each instance of any of the words in the sentence with asterisks
+    const censoredSentence = sentence.replace(regex, '*'.repeat(words[0].length));
+  
+    // Return the censored sentence
+    return censoredSentence;
+}
