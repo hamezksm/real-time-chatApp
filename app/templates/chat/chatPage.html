@@ -4,21 +4,28 @@
   <head>
     <title>Chat Page</title>
     <script src="{% static 'script.js' %}" defer></script>
+    <link rel="stylesheet"  href=" {% static '/css/style2.css' %} ">
   </head>
   <body>
       {% load static %}
-      <center>
-          <h1>Hello , Welcome to my chat site ! {{request.user}}</h1>
-      </center>
+      <ul>
+        <li><h1>Hello , Welcome to my chat site ! {{request.user}}</h1></li>
+        
+        <li style="float:right; font-size: 24px;"><a  href="{% url 'logout-user' %}">Logout</a></li>
+      </ul>
+      
       <br>
       {% if request.user.is_authenticated  %}
       <center>
-          Logout the chat Page <a href = "{% url 'logout-user' %}">Logout</a>
+         
       </center>
       {% endif %}
       <div class="chat__item__container" id="id_chat_item_container" style="font-size: 20px; margin: 0 auto; width: max-content;">   
           <input type="hidden" id="id_username" value="{{request.user.username}}" />
           <br/>
+          <div class="container">
+          <div id="id_message_field">         </div>
+        </div>
           <input type="text" id="id_message_send_input" />
           <button type="submit" id="id_message_send_button">Send Message</button>
           <br/>

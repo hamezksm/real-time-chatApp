@@ -1,14 +1,33 @@
 <!DOCTYPE html>
+
 <html>
     <head>
         <title>Login to Chat App</title>
+        {% load static %}  
+
+<link rel="stylesheet"  href=" {% static '/css/style.css' %} ">
+
     </head>
     <body>
         <form method='post' style="margin: 10rem auto; width: max-content;">
-            {% csrf_token %}
+            <div class="card">
+                <div class="image">
+                    <img src="{% static '/images/image.png' %}">
+
+                </div>
+                
+            
+                {% csrf_token %}
+            
             {{form.as_p}}
             <br/>
+            <br/>
             <button type="submit">Login</button>
+            </div>
         <form>
+            <div class="image">
+               
+
+            </div>
     </body>
 </html>

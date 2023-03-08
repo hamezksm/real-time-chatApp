@@ -53,9 +53,13 @@ function connect() {
     chatSocket.onmessage = function (e) {
         const data = JSON.parse(e.data);
         var div = document.createElement("div");
+        div.style.marginBottom = '5px';
+        div.style.backgroundColor ='#f2f5fe';
+        div.style.padding='2px';
+        div.style.borderRadius='5px';
         div.innerHTML = data.username + " : " + data.message;
         document.querySelector("#id_message_send_input").value = "";
-        document.querySelector("#id_chat_item_container").appendChild(div);
+        document.querySelector("#id_message_field").appendChild(div);
     }
 }
 
